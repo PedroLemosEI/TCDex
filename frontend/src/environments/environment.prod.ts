@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://tcdex.onrender.com",
+  apiUrl: "https://tcdex.onrender.com/api",
 };
