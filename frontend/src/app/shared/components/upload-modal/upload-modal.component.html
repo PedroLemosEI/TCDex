@@ -11,13 +11,18 @@
     <p class="instruction">Upload a photo to mark this Pokémon as caught.</p>
 
     <div class="upload-area" [class.has-preview]="preview()">
-      @if (preview()) {
+      @if (compressing()) {
+        <div class="compressing">
+          <span class="spinner"></span>
+          Compressing…
+        </div>
+      } @else if (preview()) {
         <img [src]="preview()" alt="Preview" class="preview-img" />
       } @else {
         <label for="photo-input" class="upload-label">
           <span class="upload-icon">↑</span>
           <span>Choose image</span>
-          <span class="upload-hint">JPG, PNG, WEBP · max 5 MB</span>
+          <span class="upload-hint">JPG, PNG, WEBP · comprimido automaticamente</span>
         </label>
       }
       <input
@@ -25,6 +30,7 @@
         type="file"
         accept="image/*"
         class="file-input"
+        [disabled]="compressing()"
         (change)="onFileChange($event)"
       />
     </div>
@@ -39,7 +45,7 @@
 
     <div class="modal__actions">
       <button class="btn-ghost" (click)="close.emit()" [disabled]="loading()">Cancel</button>
-      <button class="btn-primary" (click)="submit()" [disabled]="!preview() || loading()">
+      <button class="btn-primary" (click)="submit()" [disabled]="!preview() || loading() || compressing()">
         {{ loading() ? 'Saving…' : 'Mark as Caught' }}
       </button>
     </div>

@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-const MAX_PHOTO_BYTES = 5 * 1024 * 1024; // 5 MB
+const MAX_PHOTO_BYTES = 1 * 1024 * 1024; // 1 MB (frontend compresses before upload)
 
 exports.getPokedex = async (req, res) => {
   try {
