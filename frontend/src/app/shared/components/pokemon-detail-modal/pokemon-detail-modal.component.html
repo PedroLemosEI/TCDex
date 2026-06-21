@@ -1,0 +1,42 @@
+<div class="overlay" (click)="onBackdropClick($event)">
+  <div class="modal" role="dialog" aria-modal="true" [attr.aria-label]="pokemon.name + ' detail'">
+    <div class="modal__header">
+      <div class="modal__title">
+        <span class="pokemon-num">{{ paddedId }}</span>
+        <h2>{{ pokemon.name }}</h2>
+      </div>
+      <button class="close-btn" (click)="close.emit()" aria-label="Close">✕</button>
+    </div>
+
+    <div class="photo-area">
+      @if (loading()) {
+        <div class="state-msg">
+          <span class="spinner"></span> Loading…
+        </div>
+      } @else if (error()) {
+        <div class="state-msg error">{{ error() }}</div>
+      } @else {
+        <img [src]="photo()!" [alt]="pokemon.name + ' photo'" class="photo-img" />
+      }
+    </div>
+
+    @if (!loading() && !error() && caughtAt()) {
+      <p class="caught-date">
+        Caught on <strong>{{ caughtAt() | date:'dd MMMM yyyy, HH:mm' }}</strong>
+      </p>
+    }
+
+    @if (!loading()) {
+      <div class="modal__actions">
+        <button
+          class="btn-danger"
+          (click)="remove()"
+          [disabled]="removing()"
+        >
+          {{ removing() ? 'Removing…' : 'Remove from Pokédex' }}
+        </button>
+        <button class="btn-ghost" (click)="close.emit()">Close</button>
+      </div>
+    }
+  </div>
+</div>

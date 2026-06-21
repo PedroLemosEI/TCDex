@@ -1,0 +1,82 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1 class="logo">TCDex</h1>
+      <p class="tagline">Create your account</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="AshKetchum"
+          autocomplete="username"
+          [class.invalid]="form.get('username')!.invalid && form.get('username')!.touched"
+        />
+        @if (form.get('username')!.invalid && form.get('username')!.touched) {
+          <span class="field-error">3–30 characters required</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="trainer@example.com"
+          autocomplete="email"
+          [class.invalid]="form.get('email')!.invalid && form.get('email')!.touched"
+        />
+        @if (form.get('email')!.invalid && form.get('email')!.touched) {
+          <span class="field-error">Enter a valid email address</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Min. 6 characters"
+          autocomplete="new-password"
+          [class.invalid]="form.get('password')!.invalid && form.get('password')!.touched"
+        />
+        @if (form.get('password')!.invalid && form.get('password')!.touched) {
+          <span class="field-error">At least 6 characters required</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Repeat your password"
+          autocomplete="new-password"
+          [class.invalid]="pwMismatch"
+        />
+        @if (pwMismatch) {
+          <span class="field-error">Passwords do not match</span>
+        }
+      </div>
+
+      @if (error()) {
+        <div class="form-error">{{ error() }}</div>
+      }
+
+      <button type="submit" class="btn-primary submit-btn" [disabled]="loading()">
+        {{ loading() ? 'Creating account…' : 'Create Account' }}
+      </button>
+    </form>
+
+    <p class="auth-link">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </p>
+  </div>
+</div>

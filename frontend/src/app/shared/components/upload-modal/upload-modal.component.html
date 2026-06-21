@@ -1,0 +1,47 @@
+<div class="overlay" (click)="onBackdropClick($event)">
+  <div class="modal" role="dialog" aria-modal="true" [attr.aria-label]="'Register ' + pokemon.name">
+    <div class="modal__header">
+      <div class="modal__title">
+        <span class="pokemon-num">{{ paddedId }}</span>
+        <h2>{{ pokemon.name }}</h2>
+      </div>
+      <button class="close-btn" (click)="close.emit()" aria-label="Close">✕</button>
+    </div>
+
+    <p class="instruction">Upload a photo to mark this Pokémon as caught.</p>
+
+    <div class="upload-area" [class.has-preview]="preview()">
+      @if (preview()) {
+        <img [src]="preview()" alt="Preview" class="preview-img" />
+      } @else {
+        <label for="photo-input" class="upload-label">
+          <span class="upload-icon">↑</span>
+          <span>Choose image</span>
+          <span class="upload-hint">JPG, PNG, WEBP · max 5 MB</span>
+        </label>
+      }
+      <input
+        id="photo-input"
+        type="file"
+        accept="image/*"
+        class="file-input"
+        (change)="onFileChange($event)"
+      />
+    </div>
+
+    @if (preview()) {
+      <label for="photo-input" class="change-link">Change photo</label>
+    }
+
+    @if (error()) {
+      <div class="form-error">{{ error() }}</div>
+    }
+
+    <div class="modal__actions">
+      <button class="btn-ghost" (click)="close.emit()" [disabled]="loading()">Cancel</button>
+      <button class="btn-primary" (click)="submit()" [disabled]="!preview() || loading()">
+        {{ loading() ? 'Saving…' : 'Mark as Caught' }}
+      </button>
+    </div>
+  </div>
+</div>

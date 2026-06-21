@@ -1,0 +1,14 @@
+<div
+  class="card"
+  [class.caught]="isCaught"
+  [class.uncaught]="!isCaught"
+  (click)="clicked.emit(pokemon)"
+  (keydown.enter)="clicked.emit(pokemon)"
+  role="button"
+  tabindex="0"
+  [attr.aria-label]="pokemon.name + (isCaught ? ' — caught' : ' — not caught, click to register')"
+>
+  <span class="num">{{ paddedId }}</span>
+  <span class="name">{{ pokemon.name }}</span>
+  <span class="dot" [class.green]="isCaught"></span>
+</div>

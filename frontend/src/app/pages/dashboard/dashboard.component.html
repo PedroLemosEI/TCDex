@@ -1,0 +1,71 @@
+<div class="dashboard">
+  <header class="navbar">
+    <span class="brand">TCDex</span>
+
+    <div class="search-wrap">
+      <input
+        type="search"
+        class="search-input"
+        placeholder="Search Pokémon…"
+        [value]="searchQuery()"
+        (input)="searchQuery.set($any($event.target).value)"
+        aria-label="Search Pokémon"
+      />
+    </div>
+
+    <div class="nav-actions">
+      <span class="counter">
+        <span class="counter__caught">{{ caughtCount() }}</span>
+        <span class="counter__sep"> / 1025</span>
+      </span>
+
+      @if (currentUser()?.role === 'admin') {
+        <button class="btn-ghost" (click)="goToAdmin()">Admin</button>
+      }
+
+      <span class="username">{{ currentUser()?.username }}</span>
+      <button class="btn-ghost" (click)="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="content">
+    @if (loading()) {
+      <div class="state-message">
+        <span class="spinner"></span>
+        Loading Pokédex…
+      </div>
+    } @else if (error()) {
+      <div class="state-message error">{{ error() }}</div>
+    } @else {
+      @if (filteredList().length === 0) {
+        <div class="state-message">No Pokémon match your search.</div>
+      } @else {
+        <div class="pokemon-grid">
+          @for (pokemon of filteredList(); track pokemon.id) {
+            <app-pokemon-card
+              [pokemon]="pokemon"
+              [isCaught]="caughtIds().has(pokemon.id)"
+              (clicked)="onCardClick($event)"
+            />
+          }
+        </div>
+      }
+    }
+  </main>
+</div>
+
+@if (uploadTarget()) {
+  <app-upload-modal
+    [pokemon]="uploadTarget()!"
+    (uploadSuccess)="onUploadSuccess($event)"
+    (close)="uploadTarget.set(null)"
+  />
+}
+
+@if (viewTarget()) {
+  <app-pokemon-detail-modal
+    [pokemon]="viewTarget()!"
+    (close)="viewTarget.set(null)"
+    (removed)="onRemoved($event)"
+  />
+}

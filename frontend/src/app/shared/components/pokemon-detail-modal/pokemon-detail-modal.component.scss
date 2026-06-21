@@ -1,0 +1,69 @@
+.pokemon-num {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.modal__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  h2 { font-size: 16px; font-weight: 600; }
+}
+
+.photo-area {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-img {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+}
+
+.state-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  padding: 32px;
+
+  &.error { color: var(--danger); }
+}
+
+.caught-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+  strong { color: var(--text-primary); font-weight: 500; }
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: -4px;
+}
+
+/* ── Spinner ───────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

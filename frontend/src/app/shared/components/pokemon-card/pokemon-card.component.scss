@@ -1,0 +1,64 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color var(--transition), background var(--transition),
+              transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  outline: none;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+
+  &.uncaught {
+    background: var(--uncaught-bg);
+    border-color: var(--uncaught-border);
+    &:hover {
+      border-color: var(--uncaught-hover);
+      transform: translateY(-1px);
+    }
+  }
+
+  &.caught {
+    background: var(--caught-bg);
+    border-color: var(--caught-border);
+    &:hover {
+      border-color: var(--caught-hover);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.num {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+.name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--uncaught-border);
+
+  &.green { background: var(--caught-border); }
+}

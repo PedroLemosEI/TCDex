@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType Directory -Force -Path \"c:\\\\Users\\\\pedro\\\\Desktop\\\\Projects\\\\TCDex\\\\frontend\\\\src\\\\environments\")"
+    ]
+  }
+}
